@@ -19,6 +19,43 @@ struct node {
 	struct node *next;
 };
 
+struct node* createLLNode(int data)
+{
+	struct node *t = (struct node *)malloc(sizeof(struct node));
+	t->num = data;
+	t->next = NULL;
+	return t;
+}
+
+struct node* insertInBegin(struct node *head, int data)
+{
+	struct node *t = createLLNode(data);
+	if (head == NULL)
+		return t;
+	t->next = head;
+	head = t;
+	return head;
+}
+
 struct node * numberToLinkedList(int N) {
-	return NULL;
+	int rem;
+	struct node *head = NULL;
+	if (N < 0)
+	{
+		N = N*-1;
+		head = numberToLinkedList(N);
+	}
+
+	else if (N == 0)
+		head = insertInBegin(head, N);
+	else
+	{
+		while (N != 0)
+		{
+			rem = N % 10;
+			head = insertInBegin(head, rem);
+			N = N / 10;
+		}
+	}
+	return head;
 }
